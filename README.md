@@ -1,4 +1,4 @@
-# Watch
+# Watch 🔬
 
 `watch` is a basic file system watcher to execute a command upon file changes.
 
