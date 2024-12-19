@@ -1,0 +1,5 @@
+Usage:
+  <files> | watch "<command>"
+
+Example:
+  find src/* | watch "cargo build"
