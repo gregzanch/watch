@@ -3,8 +3,19 @@ To use watch, pass in a list of files (seperated by a newline) to stdin.
 
 Usage:
   <files> | watch "<command>"
-  <files> | watch [-p <poll_time_in_ms>] "<command>"
+  <files> | watch [-p|--poll-rate <poll_time_in_ms>] "<command>"
+  watch -h|--help
 
-Example:
+Examples:
+
+The following will watch all files in the `src` directory, and run `cargo build` when a file changes.
+
   find src/* | watch "cargo build"
-  find src/* | watch -p 100 "cargo build"
+
+The following will watch all files in the `src` directory every `1000` milliseconds, and run `cargo build` when a file change is detected.
+
+  find src/* | watch --poll-rate 1000 "cargo build"
+
+The following will print the help text
+
+  watch --help
