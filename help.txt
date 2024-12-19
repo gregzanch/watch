@@ -1,5 +1,10 @@
+watch is a program to monitor changes in the file system, and run a command upon changes.
+To use watch, pass in a list of files (seperated by a newline) to stdin.
+
 Usage:
   <files> | watch "<command>"
+  <files> | watch [-p <poll_time_in_ms>] "<command>"
 
 Example:
   find src/* | watch "cargo build"
+  find src/* | watch -p 100 "cargo build"
