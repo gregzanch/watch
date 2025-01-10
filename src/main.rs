@@ -163,7 +163,7 @@ fn main() -> io::Result<()> {
     let mut state = State::new();
     parse_args(&mut state);
     for file_path in read_standard_input() {
-        if fs::exists(&file_path).is_ok() {
+        if fs::exists(&file_path).is_ok() == true {
             let last_modified = get_last_modified(&file_path);
             state.files.insert(file_path, last_modified);
         }
