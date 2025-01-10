@@ -2,6 +2,14 @@
 
 `watch-files` is a basic file system watcher to execute a command upon file changes.
 
+## Install
+
+To install the binary, run:
+
+```shell
+cargo install watch-files
+```
+
 ## Usage 
 
 ```
