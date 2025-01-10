@@ -37,7 +37,8 @@ impl State {
     /// When there's a difference between the recorded modified time and the actual modified time,
     /// we will update the value in the map, and return true at the end of the loop
     fn check(&mut self) -> bool {
-        let mut any_changed = false;
+        let files_were_deleted = self.flush();
+        let mut any_changed = files_were_deleted;
         // iterate over the entries
         for (key, val) in self.files.iter_mut() {
             let last_modified = get_last_modified(&key);
@@ -47,6 +48,22 @@ impl State {
             }
         }
         any_changed
+    }
+
+    /// `Self.flush` will get rid of files that do not exist anymore
+    fn flush(&mut self) -> bool {
+        let len = self.files.len();
+        self.files.retain(|key, _| {
+            let exists = fs::exists(key);
+            if exists.is_err() {
+                return false;
+            }
+            if exists.unwrap() == false {
+                return false;
+            }
+            return true;
+        });
+        len != self.files.len()
     }
 }
 
@@ -146,8 +163,10 @@ fn main() -> io::Result<()> {
     let mut state = State::new();
     parse_args(&mut state);
     for file_path in read_standard_input() {
-        let last_modified = get_last_modified(&file_path);
-        state.files.insert(file_path, last_modified);
+        if fs::exists(&file_path).is_ok() == true {
+            let last_modified = get_last_modified(&file_path);
+            state.files.insert(file_path, last_modified);
+        }
     }
     
     let pluralizer = if state.files.len() == 1 {
