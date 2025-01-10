@@ -1,21 +1,21 @@
-watch is a program to monitor changes in the file system, and run a command upon changes.
-To use watch, pass in a list of files (seperated by a newline) to stdin.
+watch-files is a program to monitor changes in the file system, and run a command upon changes.
+To use watch-files, pass in a list of files (seperated by a newline) to stdin.
 
 Usage:
-  <files> | watch "<command>"
-  <files> | watch [-p|--poll-rate <poll_time_in_ms>] "<command>"
-  watch -h|--help
+  <files> | watch-files "<command>"
+  <files> | watch-files [-p|--poll-rate <poll_time_in_ms>] "<command>"
+  watch-files -h|--help
 
 Examples:
 
 The following will watch all files in the `src` directory, and run `cargo build` when a file changes.
 
-  find src/* | watch "cargo build"
+  find src/* | watch-files "cargo build"
 
 The following will watch all files in the `src` directory every `1000` milliseconds, and run `cargo build` when a file change is detected.
 
-  find src/* | watch --poll-rate 1000 "cargo build"
+  find src/* | watch-files --poll-rate 1000 "cargo build"
 
 The following will print the help text
 
-  watch --help
+  watch-files --help
